@@ -1,0 +1,8 @@
+{
+  "name": "POC-DevOps",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "git@github.com:josechavarriacr/POC-DevOps.git",
+  "author": "Jose Chavarría <chavarria.j4r@gmail.com>",
+  "license": "MIT"
+}
