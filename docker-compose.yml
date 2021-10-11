@@ -1,0 +1,21 @@
+version: '3.7'
+services:
+  # #######################
+  # SETUP APP CONTAINER
+  # #######################
+  app:
+    container_name: container_app
+    build:
+      context: ./app
+      dockerfile: Dockerfile
+    # links:
+    #   - api
+    ports:
+      - 8000:80
+
+    networks:
+      - network
+
+networks:
+    network:
+        driver: bridge
