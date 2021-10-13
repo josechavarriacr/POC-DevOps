@@ -13,7 +13,7 @@ pipeline {
         stage('Notify') {
             when { anyOf { branch 'develop'; branch 'main' } }
             steps {
-                slackSend( channel: "#just-testing", color: '#FFFF00', message: ":crossed_fingers::skin-tone-5: STARTED: Build ${env.JOB_NAME} [${env.BUILD_NUMBER}] (<${env.RUN_DISPLAY_URL}|Open>)")
+                slackSend( channel: "#just-testing", color: '#FFFF00', message: "<!here> :crossed_fingers::skin-tone-5: STARTED: Build ${env.JOB_NAME} [${env.BUILD_NUMBER}] (<${env.RUN_DISPLAY_URL}|Open>)")
             }
         }
         stage('Build & Test') {
