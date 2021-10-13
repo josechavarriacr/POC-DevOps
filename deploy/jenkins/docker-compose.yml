@@ -2,9 +2,11 @@ version: '3.7'
 services:
   jenkins:
     container_name: jenkins_labs
-    build:
-      context: .
-      dockerfile: Dockerfile
+    image: legendarioj4r/jenkins:latest
+
+    # build:
+    #   context: .
+    #   dockerfile: Dockerfile
     privileged: true
     user: root
     ports:
