@@ -3,7 +3,12 @@ def hostProd="prod.josechavarria.xyz"
 def userHost="root"
 
 pipeline {
-    agent any
+    agent {
+        label {
+            label ""
+            customWorkspace "/var/docker/jenkins/labs/workspace/${JOB_NAME}_${BUILD_NUMBER}"
+        }
+    }
     stages {
         stage('Notify') {
             when { anyOf { branch 'develop'; branch 'main' } }
@@ -21,17 +26,17 @@ pipeline {
             stages {
                 stage('Build') {
                     steps {
-                        sh 'yarn install'
+                        sh 'cd app && yarn install'
                     }
                 }
                 stage('Lint') {
                     steps {
-                        sh 'yarn lint'
+                        sh 'cd app && yarn lint'
                     }
                 }
                 stage('Unit Test') {
                     steps {
-                        sh 'yarn test'
+                        sh 'cd app && yarn test'
                     }
                 }
             }
