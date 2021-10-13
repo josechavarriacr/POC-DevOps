@@ -3,12 +3,12 @@ def hostProd="prod.josechavarria.xyz"
 def userHost="root"
 
 pipeline {
-    agent {
-        label {
-            label ""
-            customWorkspace "/var/docker/jenkins/labs/workspace/${JOB_NAME}_${BUILD_NUMBER}"
-        }
-    }
+    // agent {
+    //     label {
+    //         label ""
+    //         customWorkspace "/var/docker/jenkins/labs/workspace/${JOB_NAME}_${BUILD_NUMBER}"
+    //     }
+    // }
     stages {
         stage('Notify') {
             when { anyOf { branch 'develop'; branch 'main' } }
