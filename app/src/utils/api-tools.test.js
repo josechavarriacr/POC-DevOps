@@ -5,7 +5,7 @@ describe('Testing Utils Component', () => {
     it('Function ApiToolsLoadAxios', async () => {
         const response = await ApiToolsLoadAxios()
         expect(response).not.toBeNull()
-        expect(typeof response).toBe('object')
+        expect(typeof response).toBe('array')
         expect(Array.isArray(response)).toBe(true)
     })
     it('Function  ApiToolsDeleteFn', () => {
