@@ -12,6 +12,6 @@ RUN /usr/local/bin/install-plugins.sh < /usr/share/jenkins/plugins.txt
 USER root
 RUN apk add docker
 RUN apk add py-pip
-RUN apk add python3-dev libffi-dev openssl-dev gcc libc-dev make
+RUN apk add python3-dev libffi-dev openssl-dev gcc libc-dev make cargo musl-dev
 RUN pip install docker-compose
 USER jenkins
