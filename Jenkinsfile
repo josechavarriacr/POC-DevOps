@@ -17,7 +17,7 @@ pipeline {
             }
         }
         stage('Build & Test') {
-            agent {
+            agent any {
                 docker {
                     image 'node:14-alpine'
                     args '-v $HOME/docker-images-cached:/root/docker-images-cached'
