@@ -70,14 +70,14 @@ pipeline {
                     agent any
                     steps {
                         sshagent(credentials : ['public-key']) {
-                            withCredentials([string(credentialsId: 'deploy-token', variable: 'token')]) {
+                            // withCredentials([string(credentialsId: 'deploy-token', variable: 'token')]) {
                                 sh """ssh -tt -o StrictHostKeyChecking=no $userHost@$hostProd << EOF
                                 cd /home/ && git remote set-url origin https://github.com/josechavarriacr/POC-DevOps.git &&
                                 cd /home/POC-DevOps/ &&
                                 git fetch --all && git checkout main -f && git reset --hard origin/main && git pull -f &&
                                 cd /home/POC-DevOps/app && docker-compose up --build -d && exit
                                 EOF"""
-                            }
+                            // }
                         }
                     }
                 }
