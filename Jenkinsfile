@@ -1,3 +1,7 @@
+def hostDev="dev.josechavarria.xyz"
+def hostProd="prod.josechavarria.xyz"
+def userHost="root"
+
 pipeline {
     agent {
         label {
@@ -44,10 +48,12 @@ pipeline {
                     when { expression { isAppChange() } }
                     agent any
                     steps {
-                        sshagent(credentials : ['pem-tapp']) {
+                        sshagent(credentials : ['public_key']) {
                             // withCredentials([string(credentialsId: 'deploy-token', variable: 'token')]) {
-                                sh """ssh -tt -o StrictHostKeyChecking=no $userHost@$hostTappPay << EOF
+                                sh """ssh -tt -o StrictHostKeyChecking=no $userHost@$hostDev << EOF
                                 cd /home/ && git remote set-url origin https://github.com/josechavarriacr/POC-DevOps.git &&
+                                cd /home/POC-DevOps/ &&
+                                git fetch --all && git checkout develop -f && git reset --hard origin/develop && git pull -f &&
                                 cd /home/POC-DevOps/app && docker-compose up --build -d && exit
                                 EOF"""
                             // }
@@ -63,10 +69,13 @@ pipeline {
                     when { expression { isAppChange() } }
                     agent any
                     steps {
-                        sshagent(credentials : ['pem-tapp']) {
+                        sshagent(credentials : ['public_key']) {
                             withCredentials([string(credentialsId: 'deploy-token', variable: 'token')]) {
-                                sh """ssh -tt -o StrictHostKeyChecking=no $userHost@$hostTappPay << EOF
-                                sh /srv/node/TappPay/deploy/scripts/install-simple-node.sh ${token} develop dev && exit
+                                sh """ssh -tt -o StrictHostKeyChecking=no $userHost@$hostProd << EOF
+                                cd /home/ && git remote set-url origin https://github.com/josechavarriacr/POC-DevOps.git &&
+                                cd /home/POC-DevOps/ &&
+                                git fetch --all && git checkout main -f && git reset --hard origin/main && git pull -f &&
+                                cd /home/POC-DevOps/app && docker-compose up --build -d && exit
                                 EOF"""
                             }
                         }
