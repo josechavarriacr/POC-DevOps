@@ -3,6 +3,7 @@ def hostProd="prod.josechavarria.xyz"
 def userHost="root"
 
 pipeline {
+    agent any
     stages {
         stage('Notify') {
             when { anyOf { branch 'develop'; branch 'main' } }
