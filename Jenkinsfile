@@ -16,57 +16,57 @@ pipeline {
                 slackSend( channel: "#just-testing", color: '#FFFF00', message: "<!here> :crossed_fingers::skin-tone-5: STARTED: Build ${env.JOB_NAME} [${env.BUILD_NUMBER}] (<${env.RUN_DISPLAY_URL}|Open>)")
             }
         }
-        stage('Build & Test') {
-            agent {
-                docker {
-                    image 'node:14-alpine'
-                    args '-v $HOME/docker-images-cached:/root/docker-images-cached'
-                }
-            }
-            stages {
-                stage('Build') {
-                    steps {
-                        sh 'cd app && yarn install'
-                    }
-                }
-                stage('Lint') {
-                    steps {
-                        sh 'cd app && yarn lint'
-                    }
-                }
-                stage('Unit Test') {
-                    steps {
-                        sh 'cd app && yarn test'
-                    }
-                }
-            }
-        }
-        stage('Deploy Development') {
-            when { branch 'develop' }
-            parallel {
-                stage('Deploy ReactApp') {
-                    when { expression { isAppChange() } }
-                    agent any
-                    steps {
-                        sshagent(credentials : ['public-key']) {
-                            // withCredentials([string(credentialsId: 'deploy-token', variable: 'token')]) {
-                                sh """ssh -tt -o StrictHostKeyChecking=no $userHost@$hostDev << EOF
-                                cd /home/ && git remote set-url origin https://github.com/josechavarriacr/POC-DevOps.git &&
-                                cd /home/POC-DevOps/ &&
-                                git fetch --all && git checkout develop -f && git reset --hard origin/develop && git pull -f &&
-                                cd /home/POC-DevOps/app && docker-compose up --build -d && exit
-                                EOF"""
-                            // }
-                        }
-                    }
-                }
-            }
-        }
+        // stage('Build & Test') {
+        //     agent {
+        //         docker {
+        //             image 'node:14-alpine'
+        //             args '-v $HOME/docker-images-cached:/root/docker-images-cached'
+        //         }
+        //     }
+        //     stages {
+        //         stage('Build') {
+        //             steps {
+        //                 sh 'cd app && yarn install'
+        //             }
+        //         }
+        //         stage('Lint') {
+        //             steps {
+        //                 sh 'cd app && yarn lint'
+        //             }
+        //         }
+        //         stage('Unit Test') {
+        //             steps {
+        //                 sh 'cd app && yarn test'
+        //             }
+        //         }
+        //     }
+        // }
+        // stage('Deploy Development') {
+        //     when { branch 'develop' }
+        //     parallel {
+        //         stage('Deploy ReactApp') {
+        //             when { expression { isAppChange() } }
+        //             agent any
+        //             steps {
+        //                 sshagent(credentials : ['public-key']) {
+        //                     // withCredentials([string(credentialsId: 'deploy-token', variable: 'token')]) {
+        //                         sh """ssh -tt -o StrictHostKeyChecking=no $userHost@$hostDev << EOF
+        //                         cd /home/ && git remote set-url origin https://github.com/josechavarriacr/POC-DevOps.git &&
+        //                         cd /home/POC-DevOps/ &&
+        //                         git fetch --all && git checkout develop -f && git reset --hard origin/develop && git pull -f &&
+        //                         cd /home/POC-DevOps/app && docker-compose up --build -d && exit
+        //                         EOF"""
+        //                     // }
+        //                 }
+        //             }
+        //         }
+        //     }
+        // }
         stage('Deploy Production') {
             when { branch 'main' }
             parallel {
                 stage('Deploy ReactApp') {
-                    when { expression { isAppChange() } }
+                    // when { expression { isAppChange() } }
                     agent any
                     steps {
                         sshagent(credentials : ['public-key']) {
