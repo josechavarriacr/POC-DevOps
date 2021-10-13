@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 import { ApiToolsDeleteFn, ApiToolsLoadAxios } from './api-utils'
 
 describe('Testing Utils Component', () => {

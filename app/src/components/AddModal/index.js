@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import 'bootstrap/dist/css/bootstrap.min.css'
 import { ModalHeader, ModalFooter, FormGroup, Form, Input } from 'reactstrap'
 import { Button, Label, Col, Modal, ModalBody } from 'reactstrap'
