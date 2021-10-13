@@ -1,0 +1,269 @@
+{
+  "version": 4,
+  "terraform_version": "1.0.8",
+  "serial": 137,
+  "lineage": "06428adf-dbf3-264c-b2a1-abd5b3b7231c",
+  "outputs": {},
+  "resources": [
+    {
+      "mode": "managed",
+      "type": "digitalocean_certificate",
+      "name": "cert",
+      "provider": "provider[\"registry.terraform.io/digitalocean/digitalocean\"]",
+      "instances": [
+        {
+          "schema_version": 1,
+          "attributes": {
+            "certificate_chain": null,
+            "domains": [
+              "dev.josechavarria.xyz",
+              "jenkins.josechavarria.xyz"
+            ],
+            "id": "cert",
+            "leaf_certificate": null,
+            "name": "cert",
+            "not_after": "2022-01-11T06:25:53Z",
+            "private_key": null,
+            "sha1_fingerprint": "31bd31a73cff576e7fda4934c8cfce5344e178b2",
+            "state": "verified",
+            "type": "lets_encrypt",
+            "uuid": "6c575d54-ef36-421e-80c6-fe6319c5111d"
+          },
+          "sensitive_attributes": [],
+          "private": "eyJzY2hlbWFfdmVyc2lvbiI6IjEifQ=="
+        }
+      ]
+    },
+    {
+      "mode": "managed",
+      "type": "digitalocean_domain",
+      "name": "jenkins",
+      "provider": "provider[\"registry.terraform.io/digitalocean/digitalocean\"]",
+      "instances": [
+        {
+          "schema_version": 0,
+          "attributes": {
+            "id": "jenkins.josechavarria.xyz",
+            "ip_address": "167.172.12.244",
+            "name": "jenkins.josechavarria.xyz",
+            "ttl": 1800,
+            "urn": "do:domain:jenkins.josechavarria.xyz"
+          },
+          "sensitive_attributes": [],
+          "private": "bnVsbA==",
+          "dependencies": [
+            "digitalocean_loadbalancer.jenkins",
+            "digitalocean_ssh_key.macos_jose",
+            "digitalocean_droplet.dev",
+            "digitalocean_loadbalancer.loadbalancer",
+            "digitalocean_certificate.cert",
+            "digitalocean_droplet.jenkins"
+          ]
+        }
+      ]
+    },
+    {
+      "mode": "managed",
+      "type": "digitalocean_domain",
+      "name": "josechavarria",
+      "provider": "provider[\"registry.terraform.io/digitalocean/digitalocean\"]",
+      "instances": [
+        {
+          "schema_version": 0,
+          "attributes": {
+            "id": "josechavarria.xyz",
+            "ip_address": null,
+            "name": "josechavarria.xyz",
+            "ttl": 1800,
+            "urn": "do:domain:josechavarria.xyz"
+          },
+          "sensitive_attributes": [],
+          "private": "bnVsbA=="
+        }
+      ]
+    },
+    {
+      "mode": "managed",
+      "type": "digitalocean_droplet",
+      "name": "dev",
+      "provider": "provider[\"registry.terraform.io/digitalocean/digitalocean\"]",
+      "instances": [
+        {
+          "schema_version": 1,
+          "attributes": {
+            "backups": false,
+            "created_at": "2021-10-13T07:24:51Z",
+            "disk": 60,
+            "droplet_agent": null,
+            "graceful_shutdown": false,
+            "id": "269047609",
+            "image": "ubuntu-18-04-x64",
+            "ipv4_address": "137.184.30.191",
+            "ipv4_address_private": "10.116.0.2",
+            "ipv6": false,
+            "ipv6_address": "",
+            "locked": false,
+            "memory": 2048,
+            "monitoring": false,
+            "name": "dev",
+            "price_hourly": 0.02679,
+            "price_monthly": 18,
+            "private_networking": true,
+            "region": "nyc1",
+            "resize_disk": true,
+            "size": "s-2vcpu-2gb-intel",
+            "ssh_keys": [
+              "9c:14:61:f4:fe:fd:e0:d5:0f:1e:1a:48:d3:d6:f4:6c"
+            ],
+            "status": "active",
+            "tags": [],
+            "urn": "do:droplet:269047609",
+            "user_data": "19ff672b9a3722471ad35bb3d5a10edd329e6085",
+            "vcpus": 2,
+            "volume_ids": [],
+            "vpc_uuid": "0cecc4fc-54a8-414e-a9a0-f1b4b1a5e0fe"
+          },
+          "sensitive_attributes": [],
+          "private": "eyJzY2hlbWFfdmVyc2lvbiI6IjEifQ==",
+          "dependencies": [
+            "digitalocean_ssh_key.macos_jose"
+          ]
+        }
+      ]
+    },
+    {
+      "mode": "managed",
+      "type": "digitalocean_droplet",
+      "name": "jenkins",
+      "provider": "provider[\"registry.terraform.io/digitalocean/digitalocean\"]",
+      "instances": [
+        {
+          "schema_version": 1,
+          "attributes": {
+            "backups": false,
+            "created_at": "2021-10-13T07:24:52Z",
+            "disk": 60,
+            "droplet_agent": null,
+            "graceful_shutdown": false,
+            "id": "269047612",
+            "image": "ubuntu-18-04-x64",
+            "ipv4_address": "167.99.158.75",
+            "ipv4_address_private": "10.116.0.3",
+            "ipv6": false,
+            "ipv6_address": "",
+            "locked": false,
+            "memory": 2048,
+            "monitoring": false,
+            "name": "jenkins",
+            "price_hourly": 0.02679,
+            "price_monthly": 18,
+            "private_networking": true,
+            "region": "nyc1",
+            "resize_disk": true,
+            "size": "s-2vcpu-2gb-intel",
+            "ssh_keys": [
+              "9c:14:61:f4:fe:fd:e0:d5:0f:1e:1a:48:d3:d6:f4:6c"
+            ],
+            "status": "active",
+            "tags": [],
+            "urn": "do:droplet:269047612",
+            "user_data": "9bf060c9325f5828163f0e613f7badb5a89f3e17",
+            "vcpus": 2,
+            "volume_ids": [],
+            "vpc_uuid": "0cecc4fc-54a8-414e-a9a0-f1b4b1a5e0fe"
+          },
+          "sensitive_attributes": [],
+          "private": "eyJzY2hlbWFfdmVyc2lvbiI6IjEifQ==",
+          "dependencies": [
+            "digitalocean_ssh_key.macos_jose"
+          ]
+        }
+      ]
+    },
+    {
+      "mode": "managed",
+      "type": "digitalocean_loadbalancer",
+      "name": "loadbalancer",
+      "provider": "provider[\"registry.terraform.io/digitalocean/digitalocean\"]",
+      "instances": [
+        {
+          "schema_version": 1,
+          "attributes": {
+            "algorithm": "round_robin",
+            "droplet_ids": [
+              269047609,
+              269047612
+            ],
+            "droplet_tag": "",
+            "enable_backend_keepalive": false,
+            "enable_proxy_protocol": false,
+            "forwarding_rule": [
+              {
+                "certificate_id": "cert",
+                "certificate_name": "cert",
+                "entry_port": 443,
+                "entry_protocol": "https",
+                "target_port": 80,
+                "target_protocol": "http",
+                "tls_passthrough": false
+              }
+            ],
+            "healthcheck": [
+              {
+                "check_interval_seconds": 10,
+                "healthy_threshold": 5,
+                "path": "",
+                "port": 22,
+                "protocol": "tcp",
+                "response_timeout_seconds": 5,
+                "unhealthy_threshold": 3
+              }
+            ],
+            "id": "5435c509-f2cb-485c-8c87-5709d3cefabf",
+            "ip": "167.172.12.244",
+            "name": "loadbalancer",
+            "redirect_http_to_https": false,
+            "region": "nyc1",
+            "size": "lb-small",
+            "status": "active",
+            "sticky_sessions": [
+              {
+                "cookie_name": "",
+                "cookie_ttl_seconds": 0,
+                "type": "none"
+              }
+            ],
+            "urn": "do:loadbalancer:5435c509-f2cb-485c-8c87-5709d3cefabf",
+            "vpc_uuid": "0cecc4fc-54a8-414e-a9a0-f1b4b1a5e0fe"
+          },
+          "sensitive_attributes": [],
+          "private": "eyJzY2hlbWFfdmVyc2lvbiI6IjEifQ==",
+          "dependencies": [
+            "digitalocean_certificate.cert",
+            "digitalocean_droplet.dev",
+            "digitalocean_droplet.jenkins"
+          ]
+        }
+      ]
+    },
+    {
+      "mode": "managed",
+      "type": "digitalocean_ssh_key",
+      "name": "macos_jose",
+      "provider": "provider[\"registry.terraform.io/digitalocean/digitalocean\"]",
+      "instances": [
+        {
+          "schema_version": 0,
+          "attributes": {
+            "fingerprint": "9c:14:61:f4:fe:fd:e0:d5:0f:1e:1a:48:d3:d6:f4:6c",
+            "id": "31777621",
+            "name": "macos_jose",
+            "public_key": "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQDRfRza/9CHjpuk0jqX2bkHMN/mf6qyIcwCt2tv5+d+O6b6HZCX8pg4MDvK9pZlXoi+h5h1oBKY8o+WWrJ7v78Bb5For6syfkDoFEaLHO+Quo3k+AcxeN/sqUcgdkzVwGIY/oMrgdtbzSMF4hnrbxgaf3RiQp2q3RlusuzzZI98yTdjR63vZGWqFDRgIW8fl8nGWOvNNQjFetAxZal3ZUkMnRvivhcENSWBH8gyXoUzrYaGZS1Ahrjfct1ZY1T6z/ng65+iWQvixbIdCvMCunmJd91t4tNnZ15diZ9ABq8WykwvXiAUD67ecUUxU/kd5yKfE+zXBK+udAm+BJ3LdE4n4wP1OSvMOqpy5DdItoSsFT1VNyV4EAzSKRETBDvPpqkIhbKNP6yoGvy6eJ8lC35tD6PA/oCA12SdjOL5b/EXbg6rhtVajMYROYlPhAkvIpkvArLCJghcJIwGGjnl1/9IGI7H9NayLbdCldLxukioQD79Tp4KXcDuVP6rRARO0JM= jose@Joses-MacBook-Air.local\n"
+          },
+          "sensitive_attributes": [],
+          "private": "bnVsbA=="
+        }
+      ]
+    }
+  ]
+}

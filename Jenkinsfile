@@ -1,6 +1,3 @@
-def hostTappPay=""
-def userHost="ubuntu"
-
 pipeline {
     agent {
         label {
@@ -40,7 +37,7 @@ pipeline {
                 }
             }
         }
-        stage('Deploy Develop') {
+        stage('Deploy Development') {
             when { branch 'develop' }
             parallel {
                 stage('Deploy ReactApp') {
@@ -48,17 +45,18 @@ pipeline {
                     agent any
                     steps {
                         sshagent(credentials : ['pem-tapp']) {
-                            withCredentials([string(credentialsId: 'deploy-token', variable: 'token')]) {
+                            // withCredentials([string(credentialsId: 'deploy-token', variable: 'token')]) {
                                 sh """ssh -tt -o StrictHostKeyChecking=no $userHost@$hostTappPay << EOF
-                                sh /srv/node/TappPay/deploy/scripts/install-simple-node.sh ${token} develop dev && exit
+                                cd /home/ && git remote set-url origin https://github.com/josechavarriacr/POC-DevOps.git &&
+                                cd /home/POC-DevOps/app && docker-compose up --build -d && exit
                                 EOF"""
-                            }
+                            // }
                         }
                     }
                 }
             }
         }
-        stage('Deploy Main') {
+        stage('Deploy Production') {
             when { branch 'main' }
             parallel {
                 stage('Deploy ReactApp') {
@@ -80,21 +78,21 @@ pipeline {
     post {
         success {
             script {
-                if (env.BRANCH_NAME == 'develop' || env.BRANCH_NAME == 'demo') {
+                if (env.BRANCH_NAME == 'develop' || env.BRANCH_NAME == 'main') {
                     slackSend( channel: "#just-testing", color: '#00FF00', message: "<!here> :smiley: SUCCESSFUL: Build ${env.JOB_NAME} [${env.BUILD_NUMBER}] (<${env.RUN_DISPLAY_URL}|Open>)")
                 }
             }
         }
         failure {
             script {
-                if (env.BRANCH_NAME == 'develop' || env.BRANCH_NAME == 'demo') {
+                if (env.BRANCH_NAME == 'develop' || env.BRANCH_NAME == 'main') {
                     slackSend( channel: "#just-testing", color: '#FF0000', message: "<!here> :scream: FAILED: Build ${env} [${env.BUILD_NUMBER}] (<${env.RUN_DISPLAY_URL}|Open>)")
                 }
             }
         }
         unstable {
             script {
-                if (env.BRANCH_NAME == 'develop' || env.BRANCH_NAME == 'demo') {
+                if (env.BRANCH_NAME == 'develop' || env.BRANCH_NAME == 'main') {
                     slackSend( channel: "#just-testing", color: '#FF0000', message: "<!here> :grimacing: UNSTABLE: Build ${env} [${env.BUILD_NUMBER}] (<${env.RUN_DISPLAY_URL}|Open>)")
                 }
             }
