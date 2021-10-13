@@ -48,7 +48,7 @@ pipeline {
                     when { expression { isAppChange() } }
                     agent any
                     steps {
-                        sshagent(credentials : ['public_key']) {
+                        sshagent(credentials : ['public-key']) {
                             // withCredentials([string(credentialsId: 'deploy-token', variable: 'token')]) {
                                 sh """ssh -tt -o StrictHostKeyChecking=no $userHost@$hostDev << EOF
                                 cd /home/ && git remote set-url origin https://github.com/josechavarriacr/POC-DevOps.git &&
@@ -69,7 +69,7 @@ pipeline {
                     when { expression { isAppChange() } }
                     agent any
                     steps {
-                        sshagent(credentials : ['public_key']) {
+                        sshagent(credentials : ['public-key']) {
                             withCredentials([string(credentialsId: 'deploy-token', variable: 'token')]) {
                                 sh """ssh -tt -o StrictHostKeyChecking=no $userHost@$hostProd << EOF
                                 cd /home/ && git remote set-url origin https://github.com/josechavarriacr/POC-DevOps.git &&
