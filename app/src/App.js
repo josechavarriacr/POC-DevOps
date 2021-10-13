@@ -63,7 +63,7 @@ function App() {
         <>
             <Container>
                 <h1>Hello World!</h1>
-                <h2>from production!</h2>
+                <h2>from development!</h2>
                 <br></br>
                 <Button
                     color="success"
